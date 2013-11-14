@@ -22,7 +22,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #   # Use VBoxManage to customize the VM. For example to change memory:
   #   vb.customize ["modifyvm", :id, "--memory", "1024"]
   # end
-
+	config.vm.provider :virtualbox do |vb|
+		vb.gui = false
+		vb.name = 'puppet-lamp'
+		vb.customize ['modifyvm', :id, '--natdnsproxy1', 'off']
+	end
+	
    config.vm.provision :puppet do |puppet|
      puppet.manifests_path = "manifests"
      puppet.manifest_file  = "site.pp"
